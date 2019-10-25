@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bmi_calculator/utils/constants.dart';
 
 // Reusable container content widgets
 class ContainerContent extends StatelessWidget {
@@ -9,7 +10,6 @@ class ContainerContent extends StatelessWidget {
 
   // constants
   final iconSize = 60.0;
-  final textStyle = TextStyle(color: Colors.white70);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class ContainerContent extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Text(label, style: textStyle)
+        Text(label, style: kTextStyle)
       ],
     );
   }
@@ -44,6 +44,32 @@ class MyContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: childWidget,
+    );
+  }
+}
+
+// Custom round icon widget
+class CustomRoundIcon extends StatelessWidget {
+  // takes in a child with icon data and onpressed function
+  final IconData icon;
+  final Function onPressedAction;
+
+  // constructor
+  CustomRoundIcon({@required this.icon, @required this.onPressedAction});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon, color: Colors.white, size: 18.0,),
+      elevation: 6.0,
+      onPressed: onPressedAction,
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
+      constraints: BoxConstraints.tightFor(
+        width: 40.0,
+        height: 40.0
+      ),
     );
   }
 }
