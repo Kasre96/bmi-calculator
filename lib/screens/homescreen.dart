@@ -1,3 +1,5 @@
+import 'package:bmi_calculator/handlers/bmi_handler.dart';
+import 'package:bmi_calculator/screens/results_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calculator/utils/widgets.dart';
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int age = 22;
   int weight = 56;
 
+  
   @override
   void initState() {
     super.initState();
@@ -265,7 +268,21 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    print('Calc BMI');
+                    // pass params o handler for computation
+                    var bmiHandler = BMIHandler(
+                      myHeight: sliderHeight,
+                      myWeight: weight
+                    );
+
+                    String calculatedBMI = bmiHandler.calculateBMI();
+                    String bmiCategory = bmiHandler.bmiCategory();
+                    String bmiComment = bmiHandler.bmiComments();
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Results(
+                      bmi: calculatedBMI,
+                      category: bmiCategory,
+                      comment: bmiComment,
+                    )));
                   },
                   child: Text('CALCULATE BMI',
                       style: TextStyle(
